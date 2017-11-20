@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Draggable Elements</title>
+    <meta name="author" content="Andrej Hristoliubov anhr@mail.ru">
+    <script type="text/javascript" src="../JS/Common.js"></script>
+    <script type="text/javascript">
+        var lang = {
+            draggableTitleUpDown: 'To move element up or down',
+            draggableTitleLeftRight: 'To move element left or right'
+        };
+    </script>
+
+</head>
+<body>
+    <p><a href='../index.html'>Home</a> | <a href='https://github.com/anhr/draggable' target="_blank">GitHub</a></p>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- Рекламный блок -->
+    <ins class="adsbygoogle"
+         style="display:inline-block;width:728px;height:90px"
+         data-ad-client="ca-pub-2575715742658777"
+         data-ad-slot="8810450588"></ins>
+    <script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+
+    <h1>Draggable Elements</h1>
+    <p>Please drag an ░ item and drop to another ░ item.</p>
+
+    <!--Rows of elements-->
+    <h2 >Rows of elements</h2>
+    <div>
+        <span draggable="true" class="row"></span>
+        <span >Row 1</span>
+    </div>
+    <div>
+        <span class="row"></span>
+        <span >Row 2</span>
+    </div>
+    <div>
+        <span class="row"></span>
+        <span >Row 3</span>
+    </div>
+
+    <!--Line of elements-->
+    <h2>Line of elements</h2>
+    <span>
+        <span class="lineItem"></span>
+        <span>Item 1</span>
+    </span>
+    <span>
+        <span class="lineItem"></span>
+        <span>Item 2</span>
+    </span>
+    <span>
+        <span class="lineItem"></span>
+        <span>Item 3</span>
+    </span>
+
+    <!--draggable-->
+    <script type="text/javascript" src="draggable.js"></script>
+    <script type="text/javascript">
+        draggable.create({ className: 'row' });
+        draggable.create({ className: 'lineItem', line: true });
+    </script>
+</body>
+</html>
