@@ -35,6 +35,6 @@ LG Smart tv
 	Chrome 
 
 ## Have a job for me?
-Please read <a href='http://anhr.ucoz.net/AboutMe/' target="_blank">About Me</a>.
+Please read <a href='https://anhr.github.io/AboutMe/' target="_blank">About Me</a>.
 
 
