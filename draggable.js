@@ -19,76 +19,81 @@
  *       + init.
  *
  */
+if ((typeof Modernizr == 'undefined') || !Modernizr.touchevents) {
 
-var draggable = {
-    dragSrcEl: null,
-    separator: 'separator',
-    create: function (options) {
-        if (options == undefined)
-            options = {};
-        var selectors = options.className ? '.' + options.className : '[draggable]';
-        document.querySelectorAll(selectors).forEach(function (el) {
-            el.draggable = true;
-            el.title = options.line ? lang.draggableTitleLeftRight//To move element left or right
-                : lang.draggableTitleUpDown;//To move element up or down
-            el.style.cursor = options.line ? 'ew-resize' : 'ns-resize';
-            el.innerHTML = '░';
-            el.addEventListener('dragstart', function (e) {
-                consoleLog('handleDragStart');
-                this.nextElementSibling.style.opacity = '0.4';
+    if (typeof Modernizr == 'undefined')
+        consoleError('Modernizr is not available');
 
-                dragSrcEl = this;
+    var draggable = {
+        dragSrcEl: null,
+        separator: 'separator',
+        create: function (options) {
+            if (options == undefined)
+                options = {};
+            var selectors = options.className ? '.' + options.className : '[draggable]';
+            document.querySelectorAll(selectors).forEach(function (el) {
+                el.draggable = true;
+                el.title = options.line ? lang.draggableTitleLeftRight//To move element left or right
+                    : lang.draggableTitleUpDown;//To move element up or down
+                el.style.cursor = options.line ? 'ew-resize' : 'ns-resize';
+                el.innerHTML = '░';
+                el.addEventListener('dragstart', function (e) {
+                    consoleLog('handleDragStart');
+                    this.nextElementSibling.style.opacity = '0.4';
 
-                e.dataTransfer.effectAllowed = 'move';
+                    dragSrcEl = this;
 
-                //for Firefox https://stackoverflow.com/questions/13920345/html-drag-event-does-not-fire-in-firefox
-                e.dataTransfer.setData('Text', this.id);
-            }, false);
-            el.addEventListener('dragend', function (e) {
-                consoleLog('handleDragEnd');
-                this.nextElementSibling.style.opacity = '1';
-                draggable.removeSeparator();
-            }, false);
-            el.addEventListener('dragenter', function (e) {
-                consoleLog('handleDragEnter');
-            }, false);
-            el.addEventListener('dragover', function (e) {
-                consoleLog('handleDragOver');
-                if (e.preventDefault) {
-                    e.preventDefault(); // Necessary. Allows us to drop.
-                }
+                    e.dataTransfer.effectAllowed = 'move';
 
-                e.dataTransfer.dropEffect = 'move';  // See the section on the DataTransfer object.
+                    //for Firefox https://stackoverflow.com/questions/13920345/html-drag-event-does-not-fire-in-firefox
+                    e.dataTransfer.setData('Text', this.id);
+                }, false);
+                el.addEventListener('dragend', function (e) {
+                    consoleLog('handleDragEnd');
+                    this.nextElementSibling.style.opacity = '1';
+                    draggable.removeSeparator();
+                }, false);
+                el.addEventListener('dragenter', function (e) {
+                    consoleLog('handleDragEnter');
+                }, false);
+                el.addEventListener('dragover', function (e) {
+                    consoleLog('handleDragOver');
+                    if (e.preventDefault) {
+                        e.preventDefault(); // Necessary. Allows us to drop.
+                    }
 
-                draggable.removeSeparator();
-                var tagName = options.line ? 'span' : 'hr',
-                    elSeparator = document.createElement(tagName);
-                elSeparator.className = draggable.separator;
-                elSeparator.innerHTML = options.line ? '|' : '';
-                this.parentElement.parentElement.insertBefore(elSeparator, this.parentElement.nextElementSibling);
+                    e.dataTransfer.dropEffect = 'move';  // See the section on the DataTransfer object.
 
-                return false;
-            }, false);
-            el.addEventListener('dragleave', function (e) {
-                consoleLog('handleDragLeave');
-                draggable.removeSeparator();
-            }, false);
-            el.addEventListener('drop', function (e) {
-                consoleLog('handleDrop');
-                if (e.stopPropagation) {
-                    e.stopPropagation(); // Stops some browsers from redirecting.
-                }
+                    draggable.removeSeparator();
+                    var tagName = options.line ? 'span' : 'hr',
+                        elSeparator = document.createElement(tagName);
+                    elSeparator.className = draggable.separator;
+                    elSeparator.innerHTML = options.line ? '|' : '';
+                    this.parentElement.parentElement.insertBefore(elSeparator, this.parentElement.nextElementSibling);
 
-                dragSrcEl.nextElementSibling.style.opacity = '1';
-                // Don't do anything if dropping the same we're dragging.
-                if (dragSrcEl != this) this.parentElement.parentElement.insertBefore(dragSrcEl.parentElement, this.parentElement.nextElementSibling);
-                return false;
-            }, false);
-        });
-    },
-    removeSeparator: function () {
-        document.querySelectorAll('.' + draggable.separator).forEach(function (elSeparator) {
-            elSeparator.parentElement.removeChild(elSeparator);
-        });
+                    return false;
+                }, false);
+                el.addEventListener('dragleave', function (e) {
+                    consoleLog('handleDragLeave');
+                    draggable.removeSeparator();
+                }, false);
+                el.addEventListener('drop', function (e) {
+                    consoleLog('handleDrop');
+                    if (e.stopPropagation) {
+                        e.stopPropagation(); // Stops some browsers from redirecting.
+                    }
+
+                    dragSrcEl.nextElementSibling.style.opacity = '1';
+                    // Don't do anything if dropping the same we're dragging.
+                    if (dragSrcEl != this) this.parentElement.parentElement.insertBefore(dragSrcEl.parentElement, this.parentElement.nextElementSibling);
+                    return false;
+                }, false);
+            });
+        },
+        removeSeparator: function () {
+            document.querySelectorAll('.' + draggable.separator).forEach(function (elSeparator) {
+                elSeparator.parentElement.removeChild(elSeparator);
+            });
+        }
     }
-}
+} else consoleError("doesn't support touch devices");
