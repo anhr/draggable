@@ -57,6 +57,9 @@ if ((typeof Modernizr == 'undefined') || !Modernizr.touchevents) {
                     consoleLog('handleDragEnter');
                 }, false);
                 el.addEventListener('dragover', function (e) {
+                    if (this.className != dragSrcEl.className)
+                        return;
+
                     consoleLog('handleDragOver');
                     if (e.preventDefault) {
                         e.preventDefault(); // Necessary. Allows us to drop.
@@ -96,4 +99,34 @@ if ((typeof Modernizr == 'undefined') || !Modernizr.touchevents) {
             });
         }
     }
-} else consoleError("doesn't support touch devices");
+} else {//touch device
+    //consoleError("doesn't support touch devices");
+    var draggable = {
+        dragSrcEl: null,
+        separator: 'separator',
+        create: function (options) {
+            if (options == undefined)
+                options = {};
+            var selectors = options.className ? '.' + options.className : '[draggable]';
+            document.querySelectorAll(selectors).forEach(function (el) {
+                el.draggable = true;
+                el.title = options.line ? lang.draggableTitleLeftRight//To move element left or right
+                    : lang.draggableTitleUpDown;//To move element up or down
+                el.style.cursor = options.line ? 'ew-resize' : 'ns-resize';
+                el.innerHTML = '░';
+                el.addEventListener('touchstart', function (e) {
+                    consoleLog('handleTouchstart');
+                    //this.nextElementSibling.style.opacity = '0.4';
+
+                    dragSrcEl = this;
+
+                }, false);
+            });
+        },
+        removeSeparator: function () {
+            document.querySelectorAll('.' + draggable.separator).forEach(function (elSeparator) {
+                elSeparator.parentElement.removeChild(elSeparator);
+            });
+        }
+    }
+}

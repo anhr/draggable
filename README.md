@@ -18,7 +18,7 @@ Windows 10
 
 	FireFox 57
 
-Android 6.0.1 under testing
+Android 6.0.1 not available. Under construction
 
 	Chrome 58
 
@@ -30,7 +30,7 @@ Android 6.0.1 under testing
 
 	Opera Mini 25 doesn't support opacity branch
 
-LG Smart tv
+LG Smart tv not available
 
 	Chrome 
 
