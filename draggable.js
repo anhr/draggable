@@ -3,10 +3,11 @@
  * Draggable elements
  * Author: Andrej Hristoliubov
  * email: anhr@mail.ru
- * About me: http://anhr.ucoz.net/AboutMe/
+ * About me: http://anhr.github.io/AboutMe/
  * Source: https://github.com/anhr/draggable
- * Example: http://anhr.ucoz.net/draggable/
- * Thanks to: https://www.html5rocks.com/ru/tutorials/dnd/basics/
+ * Example: http://anhr.github.io/draggable/
+ * Thanks to: https://www.html5rocks.com/ru/tutorials/dnd/basics/ 
+ *      https://github.com/Bernardo-Castilho/dragdroptouch
  * Licences: GPL, The MIT License (MIT)
  * Copyright: (c) 2015 Andrej Hristoliubov
  *
@@ -99,8 +100,9 @@ if ((typeof Modernizr == 'undefined') || !Modernizr.touchevents) {
             });
         }
     }
-} else {//touch device
+} else {//touch device https://github.com/anhr/dragdroptouch
     //consoleError("doesn't support touch devices");
+/*
     var draggable = {
         dragSrcEl: null,
         separator: 'separator',
@@ -129,4 +131,5 @@ if ((typeof Modernizr == 'undefined') || !Modernizr.touchevents) {
             });
         }
     }
+*/
 }
